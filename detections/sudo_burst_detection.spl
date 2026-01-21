@@ -1,0 +1,5 @@
+index=main sourcetype=macos_system_log sudo
+| bucket _time span=30s
+| stats count as sudo_attempts by host, _time
+| where sudo_attempts >= 3
+

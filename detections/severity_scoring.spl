@@ -1,0 +1,10 @@
+index=main sourcetype=macos_system_log sudo
+| bucket _time span=2m
+| stats count as sudo_attempts by host, _time
+| eval severity=case(
+    sudo_attempts >= 6, "High",
+    sudo_attempts >= 3, "Medium",
+    true(), "Low"
+)
+| where sudo_attempts >= 3
+

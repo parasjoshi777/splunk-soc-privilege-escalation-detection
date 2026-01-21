@@ -1,0 +1,5 @@
+index=main sourcetype=macos_system_log sudo
+| bucket _time span=5m
+| stats count as sudo_events values(_raw) as commands by host, _time
+| where sudo_events >= 3
+
